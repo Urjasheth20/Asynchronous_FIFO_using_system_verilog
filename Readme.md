@@ -1,5 +1,5 @@
 # Asynchronous FIFO
- This is a Clock Domain Crossing Project 
+ This is a Clock Domain Crossing Project. 
 #Introduction
 FIFO stands for **First-In, First-Out**.  
 
@@ -16,7 +16,6 @@ This makes asynchronous FIFOs extremely important in digital systems where diffe
 
 ![FIFO Architecture](images/fifodiagram.png)
 
----
 
 # Working Principle
 
@@ -26,7 +25,7 @@ The FIFO stores incoming data in memory locations sequentially:
 2. Data is read from the FIFO using the read clock.  
 3. The first data written into the FIFO is the first data read out.  
 
----
+
 
 # Main Components of an Asynchronous FIFO
 
@@ -38,8 +37,8 @@ The FIFO stores incoming data in memory locations sequentially:
 - Full Flag Logic  
 - Empty Flag Logic  
 
----
-#Design and it's working
+
+# Design and it's working
 
 - The Write operation : The write pointer always points towards the next address where the data has to be written. when w_rst and r_rst are equal to 1 both read and write pointers returns to there initial positions. 
 - The read operation : the read pointer always points to the current FIFO word to be read.
@@ -56,7 +55,7 @@ This makes the signal much more stable and reliable before it is used in the des
 Due to the two-stage synchronizer, the Full and Empty flags are updated after synchronization delay, typically taking two destination clock cycles.
 
 
-#Signals 
+# Signals 
 
 Following is the list of signals used in the design with their definition:
 
@@ -115,32 +114,16 @@ data_width: The bit-width of each data word stored in the memory buffer (e.g., 8
 - Generates Full and Empty status flags  
 - Widely used in high-speed digital communication systems  
 
----
+
+
 
 # Module Description
 
-## 1. FIFO.sv
-This is the **top-level module** of the Asynchronous FIFO design.  
-It connects all the internal modules together and controls the overall FIFO operation.
+| Module | Description |
+|---|---|
+| `FIFO.sv` | Top-level module that connects all FIFO submodules and controls overall FIFO operation. |
+| `FIFO_mem.sv` | Implements the FIFO memory array used to store data. |
+| `write_full.sv` | Handles write-side logic and Full flag generation. |
+| `read_empty.sv` | Handles read-side logic and Empty flag generation. |
+| `sync_ff.sv` | Two-flip-flop synchronizer used for safe clock domain crossing. |
 
----
-
-## 2. FIFO_mem.sv
-This module implements the **FIFO memory array** used to store data.
-
----
-
-## 3. write_full.sv
-This module controls the **write-side logic** and generates the **Full flag**.
-
-
----
-
-## 4. read_empty.sv
-This module controls the **read-side logic** and generates the **Empty flag**.
-
----
-
-## 5. sync_ff.sv
-This module is a **two-flip-flop synchronizer** used for safe clock domain crossing.
----
