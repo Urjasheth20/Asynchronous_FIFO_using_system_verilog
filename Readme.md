@@ -127,3 +127,9 @@ data_width: The bit-width of each data word stored in the memory buffer (e.g., 8
 | `read_empty.sv` | Handles read-side logic and Empty flag generation. |
 | `sync_ff.sv` | Two-flip-flop synchronizer used for safe clock domain crossing. |
 
+# Conclusion
+The asynchronous FIFO design works perfectly for transferring data between different clock speeds. Using Gray code kept everything synced, and our tests showed the design is reliable and efficient.
+
+However, software tests cannot catch "metastability," which is a physical hardware glitch. Preventing this requires real hardware solutions like synchronizers and careful timing.
+
+Overall, this is a strong design for data transfer between two different clock domain systems.For future work, we should put this design on a real hardware. Testing various clock speeds and data patterns will guarantee it performs well under real conditions.
