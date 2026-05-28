@@ -1,6 +1,17 @@
 # Asynchronous FIFO
  This is a Clock Domain Crossing Project. 
-#Introduction
+## Table of Contents
+* [Introduction](#introduction)
+  * [FIFO Architecture](#fifo-architecture)
+* [Working Principle](#working-principle)
+* [Main Components of an Asynchronous FIFO](#main-components-of-an-asynchronous-fifo)
+* [Design and its working](#design-and-its-working)
+* [Signals](#signals)
+* [Key Features](#key-features)
+* [Module Description](#module-description)
+* [Conclusion](#conclusion)
+
+# Introduction
 FIFO stands for **First-In, First-Out**.  
 
 
@@ -14,7 +25,8 @@ Unlike a synchronous FIFO, where both read and write operations use the same clo
 This makes asynchronous FIFOs extremely important in digital systems where different modules operate at different speeds or frequencies.
  FIFO Architecture
 
-![FIFO Architecture](images/fifodiagram.png)
+<img width="1150" height="714" alt="fifodiagram" src="https://github.com/user-attachments/assets/24d3ce51-5d4b-46e0-b7ab-eb04b2dbc84a" />
+
 
 
 # Working Principle
@@ -57,6 +69,7 @@ Due to the two-stage synchronizer, the Full and Empty flags are updated after sy
 
 # Signals 
 
+- Signals used in the code:
 Following is the list of signals used in the design with their definition:
 
 wclk: Write clock signal that controls the write domain.
@@ -99,7 +112,7 @@ wgray_sync: Write pointer signal (wgray) synchronized to the rclk domain via a 2
 
 rgray_sync: Read pointer signal (rgray) synchronized to the wclk domain via a 2-stage flip-flop synchronizer block.
 
-Parameters Definition
+- Parameters Definition
 w_addr: The number of address bits defining the depth of the FIFO memory (e.g., 4 bits allows 16 memory rows).
 
 w_ptr: The total pointer bit-width (w_addr + 1), where the extra bit tracks wrap-around conditions.
@@ -130,6 +143,13 @@ data_width: The bit-width of each data word stored in the memory buffer (e.g., 8
 # Conclusion
 The asynchronous FIFO design works perfectly for transferring data between different clock speeds. Using Gray code kept everything synced, and our tests showed the design is reliable and efficient.
 
+
 However, software tests cannot catch "metastability," which is a physical hardware glitch. Preventing this requires real hardware solutions like synchronizers and careful timing.
 
 Overall, this is a strong design for data transfer between two different clock domain systems.For future work, we should put this design on a real hardware. Testing various clock speeds and data patterns will guarantee it performs well under real conditions.
+
+# Sources:
+1) VLSI verify Blog - Asynchronous FIFO
+
+---
+### Author : URJA SHETH
