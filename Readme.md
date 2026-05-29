@@ -67,6 +67,7 @@ This makes the signal much more stable and reliable before it is used in the des
 Due to the two-stage synchronizer, the Full and Empty flags are updated after synchronization delay, typically taking two destination clock cycles.
 
 
+
 # Signals 
 
 - Signals used in the code:
@@ -139,6 +140,31 @@ data_width: The bit-width of each data word stored in the memory buffer (e.g., 8
 | `write_full.sv` | Handles write-side logic and Full flag generation. |
 | `read_empty.sv` | Handles read-side logic and Empty flag generation. |
 | `sync_ff.sv` | Two-flip-flop synchronizer used for safe clock domain crossing. |
+
+
+# Testbench Results
+
+Total of three test cases were tried.
+1) Empty Test
+2) Full Test
+3) Simultaneous read and write test
+
+
+<img width="1171" height="304" alt="Screenshot 2026-05-29 101306" src="https://github.com/user-attachments/assets/403e8d52-7dc7-433c-980d-b1a6e261937f" />
+
+<img width="1641" height="373" alt="Screenshot 2026-05-29 102735" src="https://github.com/user-attachments/assets/df4f484c-354d-4e4c-9ed2-7c7f4e74d3f7" />
+
+<img width="1649" height="392" alt="Screenshot 2026-05-29 102756" src="https://github.com/user-attachments/assets/eccc334b-cbb5-424c-a849-434901992c74" />
+
+<img width="1665" height="360" alt="Screenshot 2026-05-29 103019" src="https://github.com/user-attachments/assets/577ff440-a841-49b7-9fcb-7f5a682d1b63" />
+
+
+
+Result :  All the three results matches with the expected result.
+
+Note : When analyzing the simulation results, it can be observed that the `Empty` flag is deasserted (`Empty = 0`) after three read clock cycles following the first write operation. This behavior occurs because the updated write pointer must first pass through a two-flip-flop synchronizer before it can safely enter the read clock domain. The first two read clock cycles are consumed by the synchronizer stages, while the third read clock edge updates the registered `Empty` flag. As a result, the FIFO correctly indicates the presence of valid data after a delay of three read clock cycles.
+
+
 
 # Conclusion
 The asynchronous FIFO design works perfectly for transferring data between different clock speeds. Using Gray code kept everything synced, and our tests showed the design is reliable and efficient.
